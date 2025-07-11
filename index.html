@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LazrVPN - Анонимный VPN за $1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00bcd4;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --background: #ffffff;
+            --background-blue: #e0f7fa;
+            --card-background: #fff;
+            --transition: all 0.3s ease;
+            --hover-light: #008394;
+            --hover-dark: #00796b;
+            --glow-light: rgba(0, 139, 148, 0.1);
+            --glow-dark: rgba(0, 139, 148, 0.2);
+        }
+
+        [data-theme="dark"] {
+            --primary: #4dd0e1;
+            --text-primary: #f1f1f1;
+            --text-secondary: #b3b3b3;
+            --background: #1a1a1a;
+            --background-blue: #263238;
+            --card-background: #37474f;
+            --hover-color: var(--hover-dark);
+            --glow-color: var(--glow-dark);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--background);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--hover-color);
+        }
+
+        .auth-button {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition), box-shadow 0.3s ease;
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--hover-light);
+        }
+
+        .hero {
+            background: var(--background-blue);
+            padding: 140px 0 80px;
+            position: relative;
+            overflow: hidden;
+            animation: heroGlow 5s infinite;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .create-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition), box-shadow 0.3s ease;
+        }
+
+        .create-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px var(--hover-light);
+        }
+
+        .features {
+            padding: 80px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--card-background);
+            padding: 2rem;
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px var(--glow-light);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--background-blue);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .testimonials {
+            padding: 80px 0;
+            background: var(--background-blue);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--card-background);
+            padding: 2rem;
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title h2 span {
+            color: var(--primary);
+        }
+
+        @keyframes heroGlow {
+            0% { box-shadow: 0 0 5px var(--glow-light); }
+            50% { box-shadow: 0 0 20px var(--glow-light); }
+            100% { box-shadow: 0 0 5px var(--glow-light); }
+        }
+        
+        @media (max-width: 768px) {
+        .auth-button {
+        display: none;
+        }
+}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="nav-link">
+                <img src="data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='32' height='32' rx='8' fill='%2300bcd4'/%3E%3Cpath d='M16 8L24 16L16 24L8 16L16 8Z' fill='white'/%3E%3C/svg%3E" alt="Logo">
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Главная</a>
+                <a href="#" class="nav-link">Тарифы</a>
+                <a href="#" class="auth-button">Попробовать за $1</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>LazrVPN: <span>Ваш интернет</span> под защитой</h1>
+                <p>6+ локаций, обход блокировок, анонимность.</p>
+                <a href="#" class="create-button">Попробовать за $1</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Почему <span>LazrVPN</span>?</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>Обход блокировок</h3>
+                    <p>Доступ к сайтам и сервисам, даже если они заблокированы в вашей стране.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>Высокая анонимность</h3>
+                    <p>Никаких логов и максимальная конфиденциальность для вашей безопасности.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Работа в сложных условиях</h3>
+                    <p>Протоколы, обходящие блокировку VPN, работают даже в России и других странах.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Отзывы <span>наших клиентов</span></h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"Просто подключил и всё заработало!" - Zelear</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Реально годный впн, советуем всем ставить, даже родным" - nidenseek</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Ох*ено современо. могу сидеть в ВК" - Azazel (В федеральном розыске Украины)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
